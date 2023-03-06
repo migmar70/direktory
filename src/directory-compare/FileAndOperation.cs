@@ -19,12 +19,12 @@ internal class FileAndOperation
             return SyncOperation.CreateTarget;
         }
 
-        if (targetFileInfo.LastWriteTime > sourceFileInfo.LastWriteTime)
+        if (targetFileInfo.LastWriteTime < sourceFileInfo.LastWriteTime)
         {
             return SyncOperation.UpdateTarget;
         }
 
-        if (targetFileInfo.LastWriteTime < sourceFileInfo.LastWriteTime)
+        if (targetFileInfo.LastWriteTime > sourceFileInfo.LastWriteTime)
         {
             return SyncOperation.UpdateSource;
         }
