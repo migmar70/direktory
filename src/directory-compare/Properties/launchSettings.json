@@ -2,7 +2,7 @@
   "profiles": {
     "directory-compare": {
       "commandName": "Project",
-      "commandLineArgs": "--source E:\\Documents --target C:\\Backup\\Documents --create-target"
+      "commandLineArgs": "--source E:\\Documents --target C:\\Users\\migue\\Documents"
     }
   }
 }

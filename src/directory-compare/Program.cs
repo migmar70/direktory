@@ -9,19 +9,19 @@ public class Program
         var sourceDirOption = new Option<DirectoryInfo>(aliases: new[] { "--source", "-s" }, description: "Source directory.");
         var targetDirOption = new Option<DirectoryInfo>(aliases: new[] { "--target", "-t" }, description: "Target directory.");
         var createTargetDirOption = new Option<bool>(aliases: new[] { "--create-target", "-c" }, description: "Create target directory.");
-        var excludeDirOption = new Option<SearchPatterns>(name: "--dexclude", description: "Comma-separated list of dictectories to exclude.");
+        var dexcludeOption = new Option<string>(name: "--dexclude", description: "Comma-separated list of dictectories to exclude.");
 
         var rootCommand = new RootCommand("Compare two directories.");
         rootCommand.AddOption(sourceDirOption);
         rootCommand.AddOption(targetDirOption);
         rootCommand.AddOption(createTargetDirOption);
-        rootCommand.AddOption(excludeDirOption);
+        rootCommand.AddOption(dexcludeOption);
         rootCommand.SetHandler(
             Handler, 
             sourceDirOption, 
             targetDirOption, 
             createTargetDirOption,
-            excludeDirOption);
+            dexcludeOption);
         rootCommand.Invoke(args);
     }
 
@@ -29,7 +29,7 @@ public class Program
         DirectoryInfo sourceDir, 
         DirectoryInfo targetDir, 
         bool createTarget,
-        SearchPatterns excludeDir)
+        string dexclude)
     {
         if (sourceDir.Exists == false)
         {
@@ -45,14 +45,14 @@ public class Program
         }
         var program = new Program(
             sourceDir, 
-            targetDir, 
-            excludeDir);
+            targetDir,
+            new CommaSeparatedList(dexclude));
         program.Run();
     }
 
     private readonly DirectoryInfo _sourceDir;
     private readonly DirectoryInfo _targetDir;
-    private readonly SearchPatterns _excludeDir;
+    private readonly CommaSeparatedList _dexclude;
 
     private readonly IList<DirectoryAndFiles> _tree = new List<DirectoryAndFiles>();
 
@@ -61,11 +61,11 @@ public class Program
     public Program(
         DirectoryInfo sourceDir, 
         DirectoryInfo targetDir, 
-        SearchPatterns excludeDir)
+        CommaSeparatedList dexclude)
     {
         _sourceDir = sourceDir;
         _targetDir = targetDir;
-        _excludeDir = excludeDir;
+        _dexclude = dexclude;
     }
 
     public void Run()
@@ -80,9 +80,12 @@ public class Program
         Console.WriteLine($"{_tree.Count} Directories. {_fileCount} Files;");
     }
 
-
     private void ProcessDirectory(DirectoryInfo sourceDir, DirectoryInfo targetDir)
     {
+        if (_dexclude.List.Any(item =>  item == sourceDir.Name))
+        {
+            return;
+        }
         var directoryAndFiles = new DirectoryAndFiles(sourceDir, targetDir);
 
         _tree.Add(directoryAndFiles);
