@@ -1,4 +1,4 @@
-﻿namespace DirectoryCompare;
+﻿namespace Direktory;
 
 public class CommaSeparatedList
 {

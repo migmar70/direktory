@@ -1,6 +1,6 @@
-﻿using System.Xml.Linq;
+﻿using Direktory.Sync;
 
-namespace DirectoryCompare;
+namespace Direktory;
 
 internal class DirectoryAndFiles
 {

@@ -1,8 +1,0 @@
-{
-  "profiles": {
-    "directory-compare": {
-      "commandName": "Project",
-      "commandLineArgs": "--source E:\\Documents --target C:\\Users\\migue\\Documents"
-    }
-  }
-}

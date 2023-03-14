@@ -1,6 +1,8 @@
-﻿namespace DirectoryCompare;
+﻿using Direktory.Sync;
 
-internal class FileAndOperation
+namespace Direktory;
+
+public class FileAndOperation
 {
     public FileInfo SourceFileInfo { get; private set; }
     public FileInfo TargetFileInfo { get; private set; }

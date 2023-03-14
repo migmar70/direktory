@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Direktory": {
+      "commandName": "Project",
+      "commandLineArgs": "sync --source E:\\Documents --target C:\\Users\\migue\\Documents"
+    }
+  }
+}

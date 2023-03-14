@@ -1,4 +1,4 @@
-﻿namespace DirectoryCompare;
+﻿namespace Direktory.Sync;
 
 public enum SyncOperation
 {
