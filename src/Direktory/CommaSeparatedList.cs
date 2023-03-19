@@ -2,11 +2,7 @@
 
 public class CommaSeparatedList
 {
-    public ISet<string> List { get; } = new HashSet<string>();
-
-    public CommaSeparatedList()
-    {
-    }
+    private readonly IDictionary<string, string> _patterns = new Dictionary<string, string>();
 
     public CommaSeparatedList(string patterns)
     {
@@ -25,7 +21,9 @@ public class CommaSeparatedList
     {
         foreach (string pattern in patterns)
         {
-            List.Add(pattern);
+            _patterns.Add(pattern.ToLower(), pattern);
         }
     }
+
+    public bool Contains(string item) => _patterns.ContainsKey(item.ToLower());
 }

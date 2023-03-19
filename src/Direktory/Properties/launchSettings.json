@@ -2,7 +2,7 @@
   "profiles": {
     "Direktory": {
       "commandName": "Project",
-      "commandLineArgs": "sync --source E:\\Documents --target C:\\Users\\migue\\Documents"
+      "commandLineArgs": "dsize \"C:\\Users\\Migue\\Documents\" --output \"C:\\temp\\dsize.log\""
     }
   }
 }

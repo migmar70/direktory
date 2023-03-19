@@ -1,4 +1,4 @@
-﻿using System.CommandLine;
+﻿              using System.CommandLine;
 
 namespace Direktory.Sync;
 
@@ -7,10 +7,30 @@ public class SyncCommand : Command
     public SyncCommand(string name = "sync", string description = "Directory sync command")
         : base(name, description)
     {
-        var sourceDirOption = new Option<DirectoryInfo>(aliases: new[] { "--source", "-s" }, description: "Source directory.");
-        var targetDirOption = new Option<DirectoryInfo>(aliases: new[] { "--target", "-t" }, description: "Target directory.");
-        var createTargetDirOption = new Option<bool>(aliases: new[] { "--create-target", "-c" }, description: "Create target directory.");
-        var dexcludeOption = new Option<string>(name: "--dexclude", description: "Comma-separated list of dictectories to exclude.");
+        var sourceDirOption = new Option<DirectoryInfo>(
+            aliases: new[] { "--source", "-s" }, 
+            description: "Source directory.")
+        { 
+            IsRequired = true 
+        };
+
+        var targetDirOption = new Option<DirectoryInfo>(
+            aliases: new[] { "--target", "-t" }, 
+            description: "Target directory.")
+        { 
+            IsRequired = true 
+        };
+        
+        var createTargetDirOption = new Option<bool>(
+            aliases: new[] { "--create-target", "-c" }, 
+            description: "Create target directory.");
+
+        var dexcludeOption = new Option<string[]>(
+            name: "--dexclude", 
+            description: "Comma-separated list of dictectories to exclude.")
+        {
+            AllowMultipleArgumentsPerToken = true 
+        };
 
         AddOption(sourceDirOption);
         AddOption(targetDirOption);
@@ -28,7 +48,7 @@ public class SyncCommand : Command
         DirectoryInfo sourceDir,
         DirectoryInfo targetDir,
         bool createTarget,
-        string dexclude)
+        string[] dexclude)
     {
         if (sourceDir.Exists == false)
         {

@@ -1,4 +1,6 @@
 ﻿
+using Direktory.DirectorySize;
+using Direktory.FindDuplicates;
 using Direktory.Sync;
 
 using System.CommandLine;
@@ -10,6 +12,8 @@ public class Program
     {
         new RootCommand("Directory tool.")
             .AddCommandEx(new SyncCommand())
+            .AddCommandEx(new FindDuplicatesCommand())
+            .AddCommandEx(new DirectorySizeCommand())
             .Invoke(args);
     }
    

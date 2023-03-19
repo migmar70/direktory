@@ -31,7 +31,7 @@ public class SyncCommandHandler
 
     private void ProcessDirectory(DirectoryInfo sourceDir, DirectoryInfo targetDir)
     {
-        if (_dexclude.List.Any(item => item == sourceDir.Name))
+        if (_dexclude.Contains(sourceDir.Name))
         {
             return;
         }
@@ -47,10 +47,6 @@ public class SyncCommandHandler
 
         foreach (var directoryInfo in sourceDir.GetDirectories())
         {
-            if (directoryInfo.Name == "node_modules")
-            {
-                continue;
-            }
             ProcessDirectory(directoryInfo, new DirectoryInfo(Path.Combine(targetDir.FullName, directoryInfo.Name)));
         }
     }
